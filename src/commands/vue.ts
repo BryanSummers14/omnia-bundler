@@ -1,5 +1,7 @@
 import {Command, flags} from '@oclif/command'
 import {watch} from 'fs'
+import * as ora from 'ora'
+import {homedir} from 'os'
 import {dirname, resolve} from 'path'
 import {VueLoaderPlugin} from 'vue-loader'
 import * as webpack from 'webpack'
@@ -22,10 +24,10 @@ export default class Vue extends Command {
     const _newName = _tempDir[_tempDir.length - 3] // the dir of the clientlib
     return {
       mode: 'production',
-      entry:  resolve(dirname(_filename), 'main.vue.js'),
+      entry:  resolve(homedir(), dirname(_filename), 'main.vue.js'),
       output: {
         filename: _newName + '.js',
-        path: resolve(dirname(_filename))
+        path: resolve(homedir(), dirname(_filename))
       },
       resolve: {
         extensions: ['.js', '.vue']
@@ -61,16 +63,24 @@ export default class Vue extends Command {
   async run() {
     const {args, flags} = this.parse(Vue)
 
-    watch('.', {recursive: true}, (event, filename) => {
-      this.log(event)
-      if (filename.endsWith('.vue') || filename.endsWith('.vue.js')) {
+    const _files: string[] = []
+    watch(homedir(), {recursive: true}, (event, filename = '') => {
+      if (event === 'change' && filename.indexOf('node_modules') < 0 && filename.endsWith('.vue') || filename.endsWith('.vue.js')) {
+        if (_files.includes(filename)) return
+        _files.push(filename)
         const options = this.getBaseOptions(filename)
         const compiler = webpack(options)
-        compiler.run((_err, _stats) => {})
+        const spinner = ora('compiling').start()
+        compiler.run((_err, _stats) => {
+          if (_err) {
+            spinner.fail(_err.message)
+          }
+          spinner.succeed('finished')
+        })
       }
     })
+    setInterval(() => { _files.length = 0}, 1500)
 
-    // const name = flags.name || 'world'
     this.log('hello, waiting for a .vue or .vue.js file to transpile')
     if (args.file && flags.force) {
       this.log(`you input --force and --file: ${args.file}`)

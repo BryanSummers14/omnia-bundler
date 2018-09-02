@@ -31,30 +31,9 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`omnia-bundler hello [FILE]`](#omnia-bundler-hello-file)
 * [`omnia-bundler help [COMMAND]`](#omnia-bundler-help-command)
-* [`omnia-bundler react [FILE]`](#omnia-bundler-react-file)
-* [`omnia-bundler vue [FILE]`](#omnia-bundler-vue-file)
-
-## `omnia-bundler hello [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ omnia-bundler hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ omnia-bundler hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/node-cli/omnia-bundler/blob/v0.0.1/src/commands/hello.ts)_
+* [`omnia-bundler react [OPTIONS]`](#omnia-bundler-react-file)
+* [`omnia-bundler vue [OPTIONS]`](#omnia-bundler-vue-file)
 
 ## `omnia-bundler help [COMMAND]`
 
@@ -73,13 +52,13 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.0/src/commands/help.ts)_
 
-## `omnia-bundler react [FILE]`
+## `omnia-bundler react [OPTIONS]`
 
-describe the command here
+In place transformation for React components written with JSX. 
 
 ```
 USAGE
-  $ omnia-bundler react [FILE]
+  $ omnia-bundler react [OPTIONS]
 
 OPTIONS
   -f, --force
@@ -89,13 +68,13 @@ OPTIONS
 
 _See code: [src/commands/react.ts](https://github.com/node-cli/omnia-bundler/blob/v0.0.1/src/commands/react.ts)_
 
-## `omnia-bundler vue [FILE]`
+## `omnia-bundler vue [OPTIONS]`
 
 describe the command here
 
 ```
 USAGE
-  $ omnia-bundler vue [FILE]
+  $ omnia-bundler vue [OPTIONS]
 
 OPTIONS
   -f, --force

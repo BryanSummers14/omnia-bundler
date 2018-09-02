@@ -1,5 +1,7 @@
 import {Command, flags} from '@oclif/command'
 import {watch} from 'fs'
+import * as ora from 'ora'
+import {homedir} from 'os'
 import {dirname, resolve} from 'path'
 import * as webpack from 'webpack'
 
@@ -17,14 +19,13 @@ export default class React extends Command {
   static args = [{name: 'file'}]
 
   baseOptions(_filename: string): webpack.Configuration {
-    // const _dir = _filename.substring(0, _filename.lastIndexOf('/'))
     const _name = _filename.substring(_filename.lastIndexOf('/') + 1, _filename.indexOf('.'))
     return {
       mode: 'production',
-      entry:  resolve(_filename),
+      entry:  resolve(homedir(), _filename),
       output: {
         filename: _name + '.js',
-        path: resolve(dirname(_filename) + '/')
+        path: resolve(homedir(), dirname(_filename) + '/')
       },
       module: {
         rules: [
@@ -45,17 +46,24 @@ export default class React extends Command {
 
   async run() {
     const {args, flags} = this.parse(React)
-
-    watch('.', {recursive: true}, (event, filename) => {
-      this.log(event)
-      if (filename.endsWith('.jsx')) {
+    const _files: string[] = []
+    watch(homedir(), {recursive: true}, (event, filename = '') => {
+      if (event === 'change' && filename.endsWith('.jsx')) {
+        if (_files.includes(filename)) return
+        _files.push(filename)
         const options = this.baseOptions(filename)
         const compiler = webpack(options)
-        compiler.run((_err, _stats) => {})
+        const spinner = ora('compiling').start()
+        compiler.run((_err, _stats) => {
+          if (_err) {
+            spinner.fail(_err.message)
+          }
+          spinner.succeed('finished')
+        })
       }
     })
+    setInterval(() => { _files.length = 0}, 1500)
 
-    // const name = flags.name || 'world'
     this.log('hello, just waiting for a .jsx file to work on')
     if (args.file && flags.force) {
       this.log(`you input --force and --file: ${args.file}`)
