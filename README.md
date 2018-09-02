@@ -32,8 +32,9 @@ USAGE
 # Commands
 <!-- commands -->
 * [`omnia-bundler help [COMMAND]`](#omnia-bundler-help-command)
-* [`omnia-bundler react [OPTIONS]`](#omnia-bundler-react-file)
-* [`omnia-bundler vue [OPTIONS]`](#omnia-bundler-vue-file)
+* [`omnia-bundler preact [OPTIONS]`](#omnia-bundler-preact-options)
+* [`omnia-bundler react [OPTIONS]`](#omnia-bundler-react-options)
+* [`omnia-bundler vue [OPTIONS]`](#omnia-bundler-vue-options)
 
 ## `omnia-bundler help [COMMAND]`
 
@@ -52,9 +53,25 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.0/src/commands/help.ts)_
 
+## `omnia-bundler preact [OPTIONS]`
+
+describe the command here
+
+```
+USAGE
+  $ omnia-bundler preact [OPTIONS]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/preact.ts](https://github.com/node-cli/omnia-bundler/blob/v0.0.1/src/commands/preact.ts)_
+
 ## `omnia-bundler react [OPTIONS]`
 
-In place transformation for React components written with JSX. 
+describe the command here
 
 ```
 USAGE

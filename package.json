@@ -9,6 +9,7 @@
   "bugs": "https://github.com/node-cli/omnia-bundler/issues",
   "dependencies": {
     "@babel/core": "^7.0.0",
+    "@babel/plugin-transform-react-jsx": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@oclif/command": "^1",
@@ -16,6 +17,7 @@
     "@oclif/plugin-help": "^2",
     "babel-loader": "^8.0.0",
     "ora": "^3.0.0",
+    "preact": "^8.3.1",
     "prepack-webpack-plugin": "^1.1.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
@@ -45,6 +47,9 @@
   "engines": {
     "node": ">=8.0.0"
   },
+  "browserslist": [
+    "ie 11"
+  ],
   "files": [
     "/bin",
     "/lib",

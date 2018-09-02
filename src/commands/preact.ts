@@ -5,7 +5,7 @@ import {homedir} from 'os'
 import {dirname, resolve} from 'path'
 import * as webpack from 'webpack'
 
-export default class React extends Command {
+export default class Preact extends Command {
   static description = 'describe the command here'
 
   static flags = {
@@ -36,21 +36,23 @@ export default class React extends Command {
             use: {
               loader: 'babel-loader',
               options: {
-                presets: ['@babel/preset-env', '@babel/preset-react']
+                presets: ['@babel/preset-env'],
+                plugins: [
+                  ['@babel/plugin-transform-react-jsx', {pragma: 'h'}]
+                ]
               }
             }
           }
         ]
       },
       externals: {
-        react: 'React',
-        'react-dom': 'ReactDOM'
+        preact: 'preact'
       }
     }
   }
 
   async run() {
-    const {args, flags} = this.parse(React)
+    const {args, flags} = this.parse(Preact)
     const _files: string[] = []
     watch(homedir(), {recursive: true}, (event, filename = '') => {
       if (event === 'change' && filename.endsWith('.jsx')) {
