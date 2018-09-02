@@ -21,10 +21,10 @@ export default class React extends Command {
     const _name = _filename.substring(_filename.lastIndexOf('/') + 1, _filename.indexOf('.'))
     return {
       mode: 'production',
-      entry:  resolve(__dirname, _name + '.jsx'),
+      entry:  resolve(_filename),
       output: {
         filename: _name + '.js',
-        path: dirname(resolve(__dirname, _name + '.jsx'))
+        path: resolve(dirname(_filename) + '/')
       },
       module: {
         rules: [
@@ -39,8 +39,7 @@ export default class React extends Command {
             }
           }
         ]
-      },
-      externals: ['react', 'react-dom'],
+      }
     }
   }
 
@@ -50,7 +49,8 @@ export default class React extends Command {
     watch('.', {recursive: true}, (event, filename) => {
       this.log(event)
       if (filename.endsWith('.jsx')) {
-        const compiler = webpack(this.baseOptions(filename))
+        const options = this.baseOptions(filename)
+        const compiler = webpack(options)
         compiler.run((_err, _stats) => {})
       }
     })

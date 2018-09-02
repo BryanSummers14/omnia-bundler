@@ -18,16 +18,17 @@ export default class Vue extends Command {
   static args = [{name: 'file'}]
 
   getBaseOptions(_filename: string): webpack.Configuration {
-    const _changedFileName = _filename.slice(_filename.lastIndexOf('/') + 1)
     const _tempDir = _filename.split('/')
-    const _newName = _tempDir[_tempDir.length - 2]
-    // const _name = _filename.substring(_filename.lastIndexOf('/') + 1, _filename.indexOf('.'))
+    const _newName = _tempDir[_tempDir.length - 3] // the dir of the clientlib
     return {
       mode: 'production',
-      entry:  resolve(__dirname, dirname(resolve(__dirname, _filename)), 'main.vue.js'),
+      entry:  resolve(dirname(_filename), 'main.vue.js'),
       output: {
         filename: _newName + '.js',
-        path: dirname(resolve(__dirname, dirname(resolve(__dirname, _filename)), _changedFileName))
+        path: resolve(dirname(_filename))
+      },
+      resolve: {
+        extensions: ['.js', '.vue']
       },
       module: {
         rules: [
@@ -37,7 +38,12 @@ export default class Vue extends Command {
           },
           {
             test: /\.js$/,
-            loader: 'babel-loader'
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-env']
+              }
+            }
           },
           {
             test: /\.css$/,
@@ -45,7 +51,6 @@ export default class Vue extends Command {
           }
         ]
       },
-      externals: ['vue'],
       plugins: [
         // make sure to include the plugin for the magic
         new VueLoaderPlugin()
@@ -59,10 +64,9 @@ export default class Vue extends Command {
     watch('.', {recursive: true}, (event, filename) => {
       this.log(event)
       if (filename.endsWith('.vue') || filename.endsWith('.vue.js')) {
-        const compiler = webpack(this.getBaseOptions(filename))
-        compiler.run((_err, _stats) => {
-          this.log(_stats.toString())
-        })
+        const options = this.getBaseOptions(filename)
+        const compiler = webpack(options)
+        compiler.run((_err, _stats) => {})
       }
     })
 
