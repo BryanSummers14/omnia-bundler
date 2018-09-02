@@ -59,6 +59,7 @@ export default class Preact extends Command {
         if (_files.includes(filename)) return
         _files.push(filename)
         const options = this.baseOptions(filename)
+        console.log(options)
         const compiler = webpack(options)
         const spinner = ora('compiling').start()
         compiler.run((_err, _stats) => {
