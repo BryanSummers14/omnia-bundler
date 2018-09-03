@@ -42,12 +42,6 @@ export default class React extends Command {
           }
         ]
       },
-      resolveLoader: {
-        modules: ['node_modules'],
-      },
-      resolve: {
-        modules: ['node_modules']
-      },
       externals: {
         react: 'React',
         'react-dom': 'ReactDOM'
