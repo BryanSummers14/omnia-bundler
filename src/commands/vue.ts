@@ -30,7 +30,8 @@ export default class Vue extends Command {
         path: resolve(homedir(), dirname(_filename))
       },
       resolve: {
-        extensions: ['.js', '.vue']
+        extensions: ['.js', '.vue'],
+        modules: ['node_modules']
       },
       module: {
         rules: [
@@ -54,9 +55,6 @@ export default class Vue extends Command {
         ]
       },
       resolveLoader: {
-        modules: ['node_modules']
-      },
-      resolve: {
         modules: ['node_modules']
       },
       plugins: [
