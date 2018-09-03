@@ -44,6 +44,9 @@ export default class React extends Command {
       resolveLoader: {
         modules: ['node_modules']
       },
+      resolve: {
+        modules: ['node_modules']
+      },
       externals: {
         react: 'React',
         'react-dom': 'ReactDOM'
@@ -63,6 +66,7 @@ export default class React extends Command {
         const compiler = webpack(options)
         const spinner = ora('compiling').start()
         compiler.run((_err, _stats) => {
+          this.log(_stats.toString())
           if (_err) {
             spinner.fail(_err.message)
           }

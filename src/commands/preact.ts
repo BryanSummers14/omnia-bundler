@@ -47,6 +47,9 @@ export default class Preact extends Command {
       resolveLoader: {
         modules: ['node_modules']
       },
+      resolve: {
+        modules: ['node_modules']
+      },
       externals: {
         preact: 'preact'
       }

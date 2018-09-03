@@ -56,8 +56,10 @@ export default class Vue extends Command {
       resolveLoader: {
         modules: ['node_modules']
       },
+      resolve: {
+        modules: ['node_modules']
+      }
       plugins: [
-        // make sure to include the plugin for the magic
         new VueLoaderPlugin()
       ]
     }
