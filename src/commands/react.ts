@@ -57,7 +57,7 @@ export default class React extends Command {
         if (_files.includes(filename)) return
         _files.push(filename)
         const options = this.baseOptions(filename)
-        this.log(options)
+        this.log(JSON.stringify(options))
         const compiler = webpack(options)
         const spinner = ora('compiling').start()
         compiler.run((_err, _stats) => {
