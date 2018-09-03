@@ -33,18 +33,20 @@ export default class React extends Command {
           {
             include: [join(dirname(__filename), '../../')],
             test: /\.jsx?$/,
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env', '@babel/preset-react']
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-env', '@babel/preset-react']
+              }
             }
           }
         ]
       },
       resolveLoader: {
-        modules: ['../../node_modules'],
+        modules: [resolve(join(dirname(__filename), '../../node_modules'))],
       },
       resolve: {
-        modules: ['../../node_modules']
+        modules: ['./node_modules']
       },
       externals: {
         react: 'React',

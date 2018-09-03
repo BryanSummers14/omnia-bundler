@@ -33,18 +33,20 @@ export default class Preact extends Command {
           {
             include: [join(dirname(__filename), '../../')],
             test: /\.jsx?$/,
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-              plugins: [
-                ['@babel/plugin-transform-react-jsx', {pragma: 'h'}]
-              ]
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-env'],
+                plugins: [
+                  ['@babel/plugin-transform-react-jsx', {pragma: 'h'}]
+                ]
+              }
             }
           }
         ]
       },
       resolveLoader: {
-        modules: ['./node_modules']
+        modules: [resolve(join(dirname(__filename), '../../node_modules'))],
       },
       resolve: {
         modules: ['./node_modules']
