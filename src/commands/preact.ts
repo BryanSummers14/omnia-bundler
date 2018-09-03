@@ -45,10 +45,10 @@ export default class Preact extends Command {
         ]
       },
       resolveLoader: {
-        modules: [resolve(__dirname), 'node_modules']
+        modules: [resolve(__dirname, 'node_modules'), 'node_modules']
       },
       resolve: {
-        modules: [resolve(__dirname), 'node_modules']
+        modules: [resolve(__dirname, 'node_modules'), 'node_modules']
       },
       externals: {
         preact: 'preact'
