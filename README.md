@@ -3,6 +3,8 @@ omnia-bundler
 
 An in place code transpiler to be used in multi page sites
 
+WIP!! DO NOT USE!!
+
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/omnia-bundler.svg)](https://npmjs.org/package/omnia-bundler)
 [![CircleCI](https://circleci.com/gh/node-cli/omnia-bundler/tree/master.svg?style=shield)](https://circleci.com/gh/node-cli/omnia-bundler/tree/master)
