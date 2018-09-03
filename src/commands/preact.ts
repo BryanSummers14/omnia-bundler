@@ -32,7 +32,6 @@ export default class Preact extends Command {
         rules: [
           {
             test: /\.jsx?$/,
-            exclude: /node_modules/,
             use: {
               loader: 'babel-loader',
               options: {
@@ -44,6 +43,9 @@ export default class Preact extends Command {
             }
           }
         ]
+      },
+      resolveLoader: {
+        modules: ['node_modules']
       },
       externals: {
         preact: 'preact'
