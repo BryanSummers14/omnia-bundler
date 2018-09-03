@@ -63,6 +63,7 @@ export default class Preact extends Command {
         const compiler = webpack(options)
         const spinner = ora('compiling').start()
         compiler.run((_err, _stats) => {
+          this.log(_stats.toString())
           if (_err) {
             spinner.fail(_err.message)
           }
