@@ -31,15 +31,14 @@ export default class Preact extends Command {
       module: {
         rules: [
           {
+            include: [resolve('.')],
             test: /\.jsx?$/,
-            use: {
-              loader: 'babel-loader',
-              options: {
-                presets: ['@babel/preset-env'],
-                plugins: [
-                  ['@babel/plugin-transform-react-jsx', {pragma: 'h'}]
-                ]
-              }
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              plugins: [
+                ['@babel/plugin-transform-react-jsx', {pragma: 'h'}]
+              ]
             }
           }
         ]
