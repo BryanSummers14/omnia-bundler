@@ -36,6 +36,7 @@ USAGE
 * [`omnia-bundler help [COMMAND]`](#omnia-bundler-help-command)
 * [`omnia-bundler preact [FILE]`](#omnia-bundler-preact-file)
 * [`omnia-bundler react [FILE]`](#omnia-bundler-react-file)
+* [`omnia-bundler vue [FILE]`](#omnia-bundler-vue-file)
 
 ## `omnia-bundler help [COMMAND]`
 
@@ -85,4 +86,20 @@ OPTIONS
 ```
 
 _See code: [src/commands/react.ts](https://github.com/node-cli/omnia-bundler/blob/v1.0.6/src/commands/react.ts)_
+
+## `omnia-bundler vue [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ omnia-bundler vue [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/vue.ts](https://github.com/node-cli/omnia-bundler/blob/v1.0.6/src/commands/vue.ts)_
 <!-- commandsstop -->
