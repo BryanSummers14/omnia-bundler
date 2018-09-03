@@ -58,7 +58,7 @@ export default class Vue extends Command {
       },
       resolve: {
         modules: ['node_modules']
-      }
+      },
       plugins: [
         new VueLoaderPlugin()
       ]
