@@ -2,7 +2,7 @@ import {Command, flags} from '@oclif/command'
 import {watch} from 'fs'
 import * as ora from 'ora'
 import {homedir} from 'os'
-import {dirname, join, resolve} from 'path'
+import {dirname, resolve} from 'path'
 import * as webpack from 'webpack'
 
 export default class Preact extends Command {
@@ -31,8 +31,8 @@ export default class Preact extends Command {
       module: {
         rules: [
           {
-            include: [join(dirname(__filename), '../../')],
             test: /\.jsx?$/,
+            exclude: /node_modules/,
             use: {
               loader: 'babel-loader',
               options: {
@@ -46,10 +46,10 @@ export default class Preact extends Command {
         ]
       },
       resolveLoader: {
-        modules: [resolve(join(dirname(__filename), '../../node_modules'))],
+        modules: ['node_modules'],
       },
       resolve: {
-        modules: ['./node_modules']
+        modules: ['node_modules']
       },
       externals: {
         preact: 'preact'
