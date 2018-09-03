@@ -2,7 +2,7 @@ import {Command, flags} from '@oclif/command'
 import {watch} from 'fs'
 import * as ora from 'ora'
 import {homedir} from 'os'
-import {dirname, resolve} from 'path'
+import {dirname, join, resolve} from 'path'
 import * as webpack from 'webpack'
 
 export default class React extends Command {
@@ -31,7 +31,7 @@ export default class React extends Command {
       module: {
         rules: [
           {
-            include: [resolve('.')],
+            include: [join(dirname(__filename), '../../')],
             test: /\.jsx?$/,
             loader: 'babel-loader',
             options: {
@@ -41,10 +41,10 @@ export default class React extends Command {
         ]
       },
       resolveLoader: {
-        modules: ['./node_modules'],
+        modules: ['../../node_modules'],
       },
       resolve: {
-        modules: ['./node_modules']
+        modules: ['../../node_modules']
       },
       externals: {
         react: 'React',
