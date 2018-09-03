@@ -42,10 +42,10 @@ export default class React extends Command {
         ]
       },
       resolveLoader: {
-        modules: [join(__dirname, '../../node_modules'), 'node_modules']
+        modules: [join(__dirname, '../../node_modules')]
       },
       resolve: {
-        modules: [join(__dirname, '../../node_modules'), 'node_modules']
+        modules: [join(__dirname, '../../node_modules')]
       },
       externals: {
         react: 'React',
