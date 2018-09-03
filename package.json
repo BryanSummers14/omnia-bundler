@@ -1,7 +1,7 @@
 {
   "name": "omnia-bundler",
   "description": "An in place code transpiler to be used in multi page sites",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "bryanshrugged",
   "bin": {
     "omnia-bundler": "./bin/run"
