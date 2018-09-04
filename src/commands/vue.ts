@@ -1,5 +1,5 @@
 import {Command, flags} from '@oclif/command'
-import {watch} from 'fs'
+import {existsSync, watch} from 'fs'
 import * as ora from 'ora'
 import {homedir} from 'os'
 import {dirname, resolve} from 'path'
@@ -19,8 +19,26 @@ export default class Vue extends Command {
 
   static args = [{name: 'file'}]
 
+  resolveEntry(_filename: string): string {
+    let entryFile = ''
+    let depthCheck = ''
+    let dirDepth = 3 // Setting max dir depth at 3
+    while (dirDepth !== 0) {
+      const tempFile = resolve(homedir(), dirname(_filename), depthCheck + 'main.vue.js')
+      if (existsSync(tempFile)) {
+        entryFile = tempFile
+        break
+      }
+      --dirDepth
+      depthCheck += '../'
+    }
+    return entryFile
+  }
+
   getBaseOptions(_filename: string): webpack.Configuration {
-    const _tempDir = _filename.split('/')
+    const _entryFile = this.resolveEntry(_filename)
+    if (_entryFile.length === 0) throw new Error('main.vue.js file not found from path: ' + _filename)
+    const _tempDir = dirname(_entryFile)
     const _newName = _tempDir[_tempDir.length - 3] // the dir of the clientlib
     return {
       mode: 'production',
