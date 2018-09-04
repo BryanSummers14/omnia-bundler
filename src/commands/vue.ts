@@ -38,14 +38,14 @@ export default class Vue extends Command {
   getBaseOptions(_filename: string): webpack.Configuration {
     const _entryFile = this.resolveEntry(_filename)
     if (_entryFile.length === 0) throw new Error('main.vue.js file not found from path: ' + _filename)
-    const _tempDir = dirname(_entryFile)
-    const _newName = _tempDir[_tempDir.length - 3] // the dir of the clientlib
+    // const _tempDir = resolve(dirname(_entryFile)).split('/')
+    // const _newName = _tempDir[_tempDir.length - 3] // the dir of the clientlib
     return {
       mode: 'production',
-      entry:  resolve(homedir(), dirname(_filename), 'main.vue.js'),
+      entry:  _entryFile,
       output: {
-        filename: _newName + '.js',
-        path: resolve(homedir(), dirname(_filename)),
+        filename:  'vue.js',
+        path: resolve(dirname(_entryFile)),
         libraryTarget: 'window'
       },
       resolve: {
