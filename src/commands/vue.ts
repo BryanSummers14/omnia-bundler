@@ -42,7 +42,13 @@ export default class Vue extends Command {
     if (_entryFile.length === 0) {
       throw new Error('main.vue.js file not found from path: ' + _filename)
     }
-    const propPlugin = Vue.flags['prop-decorator'] ? ['@babel/plugin-proposal-decorators', {legacy: true}] : []
+    const propPlugin = Vue.flags['prop-decorator']
+            ?
+            [
+                ['@babel/plugin-proposal-decorators', {legacy: true}],
+                ['@babel/plugin-proposal-class-properties']
+            ]
+            : []
     return {
       mode: 'production',
       entry:  _entryFile,
@@ -66,9 +72,7 @@ export default class Vue extends Command {
               loader: 'babel-loader',
               options: {
                 presets: ['@babel/preset-env'],
-                plugins: [
-                  propPlugin
-                ]
+                plugins: propPlugin
               }
             }
           },
