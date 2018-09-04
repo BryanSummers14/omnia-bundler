@@ -2,7 +2,7 @@ import {Command, flags} from '@oclif/command'
 import {watch} from 'fs'
 import * as ora from 'ora'
 import {homedir} from 'os'
-import {dirname, join, resolve} from 'path'
+import {dirname, resolve} from 'path'
 import {VueLoaderPlugin} from 'vue-loader'
 import * as webpack from 'webpack'
 
@@ -27,11 +27,11 @@ export default class Vue extends Command {
       entry:  resolve(homedir(), dirname(_filename), 'main.vue.js'),
       output: {
         filename: _newName + '.js',
-        path: resolve(homedir(), dirname(_filename))
+        path: resolve(homedir(), dirname(_filename)),
+        libraryTarget: 'window'
       },
       resolve: {
-        extensions: ['.js', '.vue'],
-        modules: ['node_modules']
+        extensions: ['.js', '.vue']
       },
       module: {
         rules: [
@@ -54,8 +54,8 @@ export default class Vue extends Command {
           }
         ]
       },
-      resolveLoader: {
-        modules: [resolve(join(dirname(__filename), '../../node_modules'))]
+      externals: {
+        vue: 'Vue'
       },
       plugins: [
         new VueLoaderPlugin()
