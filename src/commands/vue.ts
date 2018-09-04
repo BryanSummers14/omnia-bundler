@@ -2,7 +2,7 @@ import {Command, flags} from '@oclif/command'
 import {watch} from 'fs'
 import * as ora from 'ora'
 import {homedir} from 'os'
-import {dirname, resolve} from 'path'
+import {dirname, join, resolve} from 'path'
 import {VueLoaderPlugin} from 'vue-loader'
 import * as webpack from 'webpack'
 
@@ -55,7 +55,7 @@ export default class Vue extends Command {
         ]
       },
       resolveLoader: {
-        modules: ['node_modules']
+        modules: [resolve(join(dirname(__filename), '../../node_modules'))]
       },
       plugins: [
         new VueLoaderPlugin()
@@ -72,9 +72,11 @@ export default class Vue extends Command {
         if (_files.includes(filename)) return
         _files.push(filename)
         const options = this.getBaseOptions(filename)
+        this.log(options.toString())
         const compiler = webpack(options)
         const spinner = ora('compiling').start()
         compiler.run((_err, _stats) => {
+          this.log(_stats.toString())
           if (_err) {
             spinner.fail(_err.message)
           }
