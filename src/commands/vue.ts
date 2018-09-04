@@ -14,7 +14,9 @@ export default class Vue extends Command {
     // flag with a value (-n, --name=VALUE)
     name: flags.string({char: 'n', description: 'name to print'}),
     // flag with no value (-f, --force)
-    force: flags.boolean({char: 'f'})
+    force: flags.boolean({char: 'f'}),
+    // flag for configuration for the vue property decorator (-p)
+    'prop-decorator': flags.boolean({char: 'p'})
   }
 
   static args = [{name: 'file'}]
@@ -37,7 +39,10 @@ export default class Vue extends Command {
 
   getBaseOptions(_filename: string): webpack.Configuration {
     const _entryFile = this.resolveEntry(_filename)
-    if (_entryFile.length === 0) throw new Error('main.vue.js file not found from path: ' + _filename)
+    if (_entryFile.length === 0) {
+      throw new Error('main.vue.js file not found from path: ' + _filename)
+    }
+    const propPlugin = Vue.flags['prop-decorator'] ? ['@babel/plugin-proposal-decorators', {legacy: true}] : []
     return {
       mode: 'production',
       entry:  _entryFile,
@@ -60,7 +65,10 @@ export default class Vue extends Command {
             use: {
               loader: 'babel-loader',
               options: {
-                presets: ['@babel/preset-env']
+                presets: ['@babel/preset-env'],
+                plugins: [
+                  propPlugin
+                ]
               }
             }
           },
@@ -81,6 +89,14 @@ export default class Vue extends Command {
 
   async run() {
     const {args, flags} = this.parse(Vue)
+
+    if (flags.help) {
+      this.log(`
+        AVAILABLE FLAGS:
+          prop-decorator:  [-p, --prop-decorator] Indicates the transpiler to use configuration for vue-property-decorators. More information can be found: https://github.com/kaorun343/vue-property-decorator
+      `)
+      return
+    }
 
     const _files: string[] = []
     watch(homedir(), {recursive: true}, (event, filename = '') => {
