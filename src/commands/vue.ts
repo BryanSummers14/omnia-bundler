@@ -38,13 +38,11 @@ export default class Vue extends Command {
   getBaseOptions(_filename: string): webpack.Configuration {
     const _entryFile = this.resolveEntry(_filename)
     if (_entryFile.length === 0) throw new Error('main.vue.js file not found from path: ' + _filename)
-    // const _tempDir = resolve(dirname(_entryFile)).split('/')
-    // const _newName = _tempDir[_tempDir.length - 3] // the dir of the clientlib
     return {
       mode: 'production',
       entry:  _entryFile,
       output: {
-        filename:  'vue.js',
+        filename:  'vue.compiled.js',
         path: resolve(dirname(_entryFile)),
         libraryTarget: 'window'
       },
@@ -90,7 +88,7 @@ export default class Vue extends Command {
         if (_files.includes(filename)) return
         _files.push(filename)
         const options = this.getBaseOptions(filename)
-        this.log(JSON.stringify(options))
+        // this.log(JSON.stringify(options))
         const compiler = webpack(options)
         const spinner = ora('compiling').start()
         compiler.run((_err, _stats) => {
@@ -102,7 +100,7 @@ export default class Vue extends Command {
         })
       }
     })
-    setInterval(() => { _files.length = 0}, 1500)
+    setInterval(() => { _files.length = 0}, 2000)
 
     this.log('Ready')
     if (args.file && flags.force) {

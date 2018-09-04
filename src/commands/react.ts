@@ -58,7 +58,7 @@ export default class React extends Command {
         if (_files.includes(filename)) return
         _files.push(filename)
         const options = this.baseOptions(filename)
-        this.log(JSON.stringify(options))
+        // this.log(JSON.stringify(options))
         const compiler = webpack(options)
         const spinner = ora('compiling').start()
         compiler.run((_err, _stats) => {
@@ -70,7 +70,7 @@ export default class React extends Command {
         })
       }
     })
-    setInterval(() => { _files.length = 0}, 1500)
+    setInterval(() => { _files.length = 0}, 2000)
 
     this.log('Ready')
     if (args.file && flags.force) {
