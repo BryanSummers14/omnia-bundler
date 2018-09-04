@@ -25,7 +25,8 @@ export default class React extends Command {
       entry:  resolve(homedir(), _filename),
       output: {
         filename: _name + '.js',
-        path: resolve(homedir(), dirname(_filename) + '/')
+        path: resolve(homedir(), dirname(_filename) + '/'),
+        libraryTarget: 'window'
       },
       target: 'web',
       module: {
@@ -41,9 +42,6 @@ export default class React extends Command {
             }
           }
         ]
-      },
-      resolveLoader: {
-        modules: ['../../node_modules'],
       },
       externals: {
         react: 'React',
@@ -64,8 +62,8 @@ export default class React extends Command {
         const compiler = webpack(options)
         const spinner = ora('compiling').start()
         compiler.run((_err, _stats) => {
-          this.log(_stats.toString())
           if (_err) {
+            this.log(_stats.toString())
             spinner.fail(_err.message)
           }
           spinner.succeed('finished')
@@ -74,7 +72,7 @@ export default class React extends Command {
     })
     setInterval(() => { _files.length = 0}, 1500)
 
-    this.log('hello, just waiting for a .jsx file to work on')
+    this.log('Ready')
     if (args.file && flags.force) {
       this.log(`you input --force and --file: ${args.file}`)
     }

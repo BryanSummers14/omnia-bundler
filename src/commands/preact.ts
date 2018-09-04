@@ -69,8 +69,8 @@ export default class Preact extends Command {
         const compiler = webpack(options)
         const spinner = ora('compiling').start()
         compiler.run((_err, _stats) => {
-          this.log(_stats.toString())
           if (_err) {
+            this.log(_stats.toString())
             spinner.fail(_err.message)
           }
           spinner.succeed('finished')
@@ -79,7 +79,7 @@ export default class Preact extends Command {
     })
     setInterval(() => { _files.length = 0}, 1500)
 
-    this.log('hello, just waiting for a .jsx file to work on')
+    this.log('Ready')
     if (args.file && flags.force) {
       this.log(`you input --force and --file: ${args.file}`)
     }
