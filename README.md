@@ -34,9 +34,9 @@ USAGE
 # Commands
 <!-- commands -->
 * [`omnia-bundler help [COMMAND]`](#omnia-bundler-help-command)
-* [`omnia-bundler preact [FILE]`](#omnia-bundler-preact-file)
-* [`omnia-bundler react [FILE]`](#omnia-bundler-react-file)
-* [`omnia-bundler vue [FILE]`](#omnia-bundler-vue-file)
+* [`omnia-bundler preact`](#omnia-bundler-preact)
+* [`omnia-bundler react`](#omnia-bundler-react)
+* [`omnia-bundler vue`](#omnia-bundler-vue)
 
 ## `omnia-bundler help [COMMAND]`
 
@@ -55,50 +55,56 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.1/src/commands/help.ts)_
 
-## `omnia-bundler preact [FILE]`
+## `omnia-bundler preact`
 
-describe the command here
+Starts the bundler in 'preact' mode which will watch the filesystem for changes to .jsx files.
+
+Peer dependencies REQUIRED:
+```
+npm install -D babel-loader @babel/core @babel/preset-env @babel/plugin-transform-react-jsx
+```
 
 ```
 USAGE
-  $ omnia-bundler preact [FILE]
+  $ omnia-bundler preact
 
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+OPTIONS (Coming Soon)
 ```
 
 _See code: [src/commands/preact.ts](https://github.com/node-cli/omnia-bundler/blob/v1.0.26/src/commands/preact.ts)_
 
-## `omnia-bundler react [FILE]`
+## `omnia-bundler react`
 
-describe the command here
+Starts the bundler in 'react' mode which will watch the filesystem for changes to .jsx files.
+
+Peer dependencies REQUIRED:
+```
+npm install -D babel-loader @babel/core @babel/preset-env @babel/preset-react
+```
 
 ```
 USAGE
-  $ omnia-bundler react [FILE]
+  $ omnia-bundler react
 
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+OPTIONS (Coming Soon)
 ```
 
 _See code: [src/commands/react.ts](https://github.com/node-cli/omnia-bundler/blob/v1.0.26/src/commands/react.ts)_
 
-## `omnia-bundler vue [FILE]`
+## `omnia-bundler vue`
 
-describe the command here
+Starts the bundler in 'vue' mode which will watch the filesystem for changes to .vue or .js files. The bundler is expecting vue files in the vue template format. Since the vue template format requires a 'main' file, by convention the bundler looks for a 'main.vue.js' file which will be the entry file to compile the templates.
+
+Peer dependencies REQUIRED:
+```
+npm install -D babel-loader @babel/core @babel/preset-env vue-loader css-loader style-loader
+```
 
 ```
 USAGE
-  $ omnia-bundler vue [FILE]
+  $ omnia-bundler vue
 
-OPTIONS
-  -f, --force
-  -h, --help            show CLI help
-  -n, --name=name       name to print
+OPTIONS (Coming Soon [Not Ready])
   -p, --prop-decorator
 ```
 

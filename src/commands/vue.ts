@@ -104,7 +104,7 @@ export default class Vue extends Command {
 
     const _files: string[] = []
     watch(homedir(), {recursive: true}, (event, filename = '') => {
-      if (event === 'change' && filename.indexOf('node_modules') < 0 && filename.endsWith('.vue') || filename.endsWith('.vue.js')) {
+      if (event === 'change' && filename.indexOf('node_modules') < 0 && filename.endsWith('.vue') || filename.endsWith('.js')) {
         if (_files.includes(filename)) return
         _files.push(filename)
         const options = this.getBaseOptions(filename)
