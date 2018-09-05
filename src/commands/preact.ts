@@ -14,20 +14,24 @@ export default class Preact extends Command {
     name: flags.string({char: 'n', description: 'name to print'}),
     // flag with no value (-f, --force)
     force: flags.boolean({char: 'f'}),
+    // flag for development mode(-D, --development)
+    development: flags.boolean({char: 'D'})
   }
 
   static args = [{name: 'file'}]
 
-  baseOptions(_filename: string): webpack.Configuration {
+  baseOptions(_filename: string) {
     const _name = _filename.substring(_filename.lastIndexOf('/') + 1, _filename.indexOf('.'))
+    const envMode = Preact.flags.development ? {_config: 'production', _devTool: undefined} : {_config: 'development', _devTool: 'source-map'}
     return {
-      mode: 'production',
+      mode: envMode._config,
       entry:  resolve(homedir(), _filename),
       output: {
         filename: _name + '.js',
         path: resolve(homedir(), dirname(_filename) + '/')
       },
       target: 'web',
+      devtool: envMode._devTool,
       module: {
         rules: [
           {
@@ -58,11 +62,11 @@ export default class Preact extends Command {
       if (event === 'change' && filename.endsWith('.jsx')) {
         if (_files.includes(filename)) return
         _files.push(filename)
-        const options = this.baseOptions(filename)
+        const options: any = this.baseOptions(filename)
         // this.log(JSON.stringify(options))
         const compiler = webpack(options)
         const spinner = ora('compiling').start()
-        compiler.run((_err, _stats) => {
+        compiler.run((_err: any, _stats: any) => {
           if (_err) {
             this.log(_stats.toString())
             spinner.fail(_err.message)
@@ -73,7 +77,7 @@ export default class Preact extends Command {
     })
     setInterval(() => { _files.length = 0}, 2000)
 
-    this.log('Ready')
+    this.log('Watching for changes')
     if (args.file && flags.force) {
       this.log(`you input --force and --file: ${args.file}`)
     }

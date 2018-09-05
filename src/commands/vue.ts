@@ -15,6 +15,8 @@ export default class Vue extends Command {
     name: flags.string({char: 'n', description: 'name to print'}),
     // flag with no value (-f, --force)
     force: flags.boolean({char: 'f'}),
+    // flag for development mode
+    development: flags.boolean({char: 'D'}),
     // flag for configuration for the vue property decorator (-p)
     'prop-decorator': flags.boolean({char: 'p'})
   }
@@ -37,7 +39,7 @@ export default class Vue extends Command {
     return entryFile
   }
 
-  getBaseOptions(_filename: string): webpack.Configuration {
+  getBaseOptions(_filename: string) {
     const _entryFile = this.resolveEntry(_filename)
     if (_entryFile.length === 0) {
       throw new Error('main.vue.js file not found from path: ' + _filename)
@@ -49,8 +51,9 @@ export default class Vue extends Command {
                 ['@babel/plugin-proposal-class-properties', {loose: true}]
             ]
             : []
+    const envMode = Vue.flags.development ? {_config: 'production', _devTool: undefined} : {_config: 'development', _devTool: 'source-map'}
     return {
-      mode: 'production',
+      mode: envMode._config,
       entry:  _entryFile,
       output: {
         filename:  'vue.compiled.js',
@@ -60,6 +63,7 @@ export default class Vue extends Command {
       resolve: {
         extensions: ['.js', '.vue']
       },
+      devtool: envMode._devTool,
       module: {
         rules: [
           {
@@ -107,11 +111,11 @@ export default class Vue extends Command {
       if (event === 'change' && filename.indexOf('node_modules') < 0 && filename.endsWith('.vue') || filename.endsWith('.js')) {
         if (_files.includes(filename)) return
         _files.push(filename)
-        const options = this.getBaseOptions(filename)
+        const options: any = this.getBaseOptions(filename)
         // this.log(JSON.stringify(options))
         const compiler = webpack(options)
         const spinner = ora('compiling').start()
-        compiler.run((_err, _stats) => {
+        compiler.run((_err: any, _stats: any) => {
           if (_err) {
             this.log(_stats.toString())
             spinner.fail(_err.message)
@@ -122,7 +126,7 @@ export default class Vue extends Command {
     })
     setInterval(() => { _files.length = 0}, 2000)
 
-    this.log('Ready')
+    this.log('Watching for changes')
     if (args.file && flags.force) {
       this.log(`you input --force and --file: ${args.file}`)
     }
