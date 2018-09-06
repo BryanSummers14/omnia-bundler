@@ -15,14 +15,20 @@ export default class Preact extends Command {
     // flag with no value (-f, --force)
     force: flags.boolean({char: 'f'}),
     // flag for development mode(-D, --development)
-    development: flags.boolean({char: 'D'})
+    development: flags.boolean({char: 'D'}),
+    // flag for flow development
+    flow: flags.boolean()
   }
 
   static args = [{name: 'file'}]
 
   baseOptions(_filename: string) {
+    const _setPresets: Array<string> = ['@babel/preset-env']
     const _name = _filename.substring(_filename.lastIndexOf('/') + 1, _filename.indexOf('.'))
     const envMode = Preact.flags.development ? {_config: 'production', _devTool: undefined} : {_config: 'development', _devTool: 'source-map'}
+    if (Preact.flags.flow) {
+      _setPresets.push('flow')
+    }
     return {
       mode: envMode._config,
       entry:  resolve(homedir(), _filename),
@@ -40,7 +46,7 @@ export default class Preact extends Command {
             use: {
               loader: 'babel-loader',
               options: {
-                presets: ['@babel/preset-env'],
+                presets: [..._setPresets],
                 plugins: [
                   ['@babel/plugin-transform-react-jsx', {pragma: 'h'}]
                 ]

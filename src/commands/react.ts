@@ -15,14 +15,20 @@ export default class React extends Command {
     // flag with no value (-f, --force)
     force: flags.boolean({char: 'f'}),
     // flag for development mode(-D, --development)
-    development: flags.boolean({char: 'D'})
+    development: flags.boolean({char: 'D'}),
+    // flag for flow preset
+    flow: flags.boolean()
   }
 
   static args = [{name: 'file'}]
 
   baseOptions(_filename: string) {
+    const _setPresets: Array<string> = ['@babel/preset-env', '@babel/preset-react']
     const _name = _filename.substring(_filename.lastIndexOf('/') + 1, _filename.indexOf('.'))
     const envMode = React.flags.development ? {_config: 'production', _devTool: undefined} : {_config: 'development', _devTool: 'source-map'}
+    if (React.flags.flow) {
+      _setPresets.push('flow')
+    }
     return {
       mode: envMode._config,
       entry:  resolve(homedir(), _filename),
@@ -41,7 +47,7 @@ export default class React extends Command {
             use: {
               loader: 'babel-loader',
               options: {
-                presets: ['@babel/preset-env', '@babel/preset-react']
+                presets: [..._setPresets]
               }
             }
           }
