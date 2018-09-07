@@ -17,7 +17,7 @@ export default class Preact extends Command {
     // flag for development mode(-D, --development)
     development: flags.boolean({char: 'D'}),
     // flag for flow development
-    flow: flags.boolean()
+    flow: flags.boolean({char: 'w', description: 'Adds flow configuration'})
   }
 
   static args = [{name: 'file'}]

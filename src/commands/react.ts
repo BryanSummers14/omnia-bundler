@@ -17,7 +17,7 @@ export default class React extends Command {
     // flag for development mode(-D, --development)
     development: flags.boolean({char: 'D'}),
     // flag for flow preset
-    flow: flags.boolean()
+    flow: flags.boolean({char: 'w', description: 'Adds flow configuration'})
   }
 
   static args = [{name: 'file'}]
