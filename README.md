@@ -35,7 +35,7 @@ $ npm install --save-dev omnia-bundler @babel/preset-env @babel/plugin-transform
 
 To get started with Vue:
 ```
-$ npm install --save-dev omnia-bundler @babel/preset-env vue-loader babel-loader style-loader css-loader (to add prop decorators) @babel/plugin-proposal-decorators @babel/plugin-proposal-class-properties 
+$ npm install --save-dev omnia-bundler @babel/preset-env vue-loader babel-loader style-loader css-loader (to add prop decorators) vue-property-decorator @babel/plugin-proposal-decorators @babel/plugin-proposal-class-properties 
 ```
 
 <!-- usage -->
