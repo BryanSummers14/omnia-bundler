@@ -10,14 +10,11 @@ export default class Vue extends Command {
   static description = 'describe the command here'
 
   static flags = {
+    // flag for help options(-h, --help)
     help: flags.help({char: 'h'}),
-    // flag with a value (-n, --name=VALUE)
-    name: flags.string({char: 'n', description: 'name to print'}),
-    // flag with no value (-f, --force)
-    force: flags.boolean({char: 'f'}),
     // flag for development mode
     development: flags.boolean({char: 'D'}),
-    // flag for configuration for the vue property decorator (-p)
+    // flag for configuration for the vue property decorator (-p, --property-decorator)
     'prop-decorator': flags.boolean({char: 'p'})
   }
 
@@ -96,12 +93,12 @@ export default class Vue extends Command {
   }
 
   async run() {
-    const {args, flags} = this.parse(Vue)
+    const {/*args,*/flags} = this.parse(Vue)
 
     if (flags.help) {
       this.log(`
         AVAILABLE FLAGS:
-          prop-decorator:  [-p, --prop-decorator] Indicates the transpiler to use configuration for vue-property-decorators. More information can be found: https://github.com/kaorun343/vue-property-decorator
+          prop-decorator:  [-p, --property-decorator] Indicates the transpiler to use configuration for vue-property-decorators. More information can be found: https://github.com/kaorun343/vue-property-decorator
       `)
       return
     }
@@ -127,8 +124,5 @@ export default class Vue extends Command {
     setInterval(() => { _files.length = 0}, 2000)
 
     this.log('Watching for changes')
-    if (args.file && flags.force) {
-      this.log(`you input --force and --file: ${args.file}`)
-    }
   }
 }

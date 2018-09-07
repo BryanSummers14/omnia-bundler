@@ -9,11 +9,8 @@ export default class React extends Command {
   static description = 'describe the command here'
 
   static flags = {
+    // flag for help (-h, --help)
     help: flags.help({char: 'h'}),
-    // flag with a value (-n, --name=VALUE)
-    name: flags.string({char: 'n', description: 'name to print'}),
-    // flag with no value (-f, --force)
-    force: flags.boolean({char: 'f'}),
     // flag for development mode(-D, --development)
     development: flags.boolean({char: 'D'}),
     // flag for flow preset
@@ -61,7 +58,16 @@ export default class React extends Command {
   }
 
   async run() {
-    const {args, flags} = this.parse(React)
+    const {/*args,*/flags} = this.parse(React)
+
+    if (flags.help) {
+      this.log(`
+        AVAILABLE FLAGS:
+          flow:  [-f, --flow] Indicates the transpiler to use configuration for flow development
+      `)
+      return
+    }
+
     const _files: string[] = []
     watch(homedir(), {recursive: true}, (event, filename = '') => {
       if (event === 'change' && filename.endsWith('.jsx')) {
@@ -83,8 +89,5 @@ export default class React extends Command {
     setInterval(() => { _files.length = 0}, 2000)
 
     this.log('Watching for changes')
-    if (args.file && flags.force) {
-      this.log(`you input --force and --file: ${args.file}`)
-    }
   }
 }
