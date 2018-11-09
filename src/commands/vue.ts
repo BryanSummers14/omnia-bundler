@@ -95,7 +95,7 @@ export default class Vue extends Command {
   async run() {
     const {/*args,*/flags} = this.parse(Vue)
 
-    if (flags.help) {
+    if (Boolean(flags.help)) {
       this.log(`
         AVAILABLE FLAGS:
           prop-decorator:  [-p, --property-decorator] Indicates the transpiler to use configuration for vue-property-decorators. More information can be found: https://github.com/kaorun343/vue-property-decorator
@@ -108,7 +108,9 @@ export default class Vue extends Command {
       if (event === 'change' && filename.indexOf('node_modules') < 0 && filename.endsWith('.vue') || filename.endsWith('.js')) {
         if (_files.includes(filename)) return
         _files.push(filename)
+        this.log(filename)
         const options: any = this.getBaseOptions(filename)
+        this.log(options)
         // this.log(JSON.stringify(options))
         const compiler = webpack(options)
         const spinner = ora('compiling').start()

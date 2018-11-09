@@ -60,7 +60,7 @@ export default class React extends Command {
   async run() {
     const {/*args,*/flags} = this.parse(React)
 
-    if (flags.help) {
+    if (Boolean(flags.help)) {
       this.log(`
         AVAILABLE FLAGS:
           flow:  [-f, --flow] Indicates the transpiler to use configuration for flow development
@@ -73,8 +73,10 @@ export default class React extends Command {
       if (event === 'change' && filename.endsWith('.jsx')) {
         if (_files.includes(filename)) return
         _files.push(filename)
+        this.log(filename)
         const options: any = this.baseOptions(filename)
         // this.log(JSON.stringify(options))
+        this.log(options)
         const compiler = webpack(options)
         const spinner = ora('compiling').start()
         compiler.run((_err: any, _stats: any) => {

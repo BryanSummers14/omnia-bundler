@@ -61,7 +61,7 @@ export default class Preact extends Command {
   async run() {
     const {/*args,*/flags} = this.parse(Preact)
 
-    if (flags.help) {
+    if (Boolean(flags.help)) {
       this.log(`
         AVAILABLE FLAGS:
           flow:  [-f, --flow] Indicates the transpiler to use configuration for flow development
@@ -74,7 +74,9 @@ export default class Preact extends Command {
       if (event === 'change' && filename.endsWith('.jsx')) {
         if (_files.includes(filename)) return
         _files.push(filename)
+        this.log(filename)
         const options: any = this.baseOptions(filename)
+        this.log(options)
         // this.log(JSON.stringify(options))
         const compiler = webpack(options)
         const spinner = ora('compiling').start()

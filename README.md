@@ -44,7 +44,7 @@ $ npm install -g omnia-bundler
 $ omnia-bundler COMMAND
 running command...
 $ omnia-bundler (-v|--version|version)
-omnia-bundler/1.0.32 darwin-x64 node-v10.7.0
+omnia-bundler/1.0.33 darwin-x64 node-v10.13.0
 $ omnia-bundler --help [COMMAND]
 USAGE
   $ omnia-bundler COMMAND
@@ -89,7 +89,7 @@ OPTIONS
   -w, --flow         Adds flow configuration
 ```
 
-_See code: [src/commands/preact.ts](https://github.com/node-cli/omnia-bundler/blob/v1.0.32/src/commands/preact.ts)_
+_See code: [src/commands/preact.ts](https://github.com/node-cli/omnia-bundler/blob/v1.0.33/src/commands/preact.ts)_
 
 ## `omnia-bundler react [FILE]`
 
@@ -105,7 +105,7 @@ OPTIONS
   -w, --flow         Adds flow configuration
 ```
 
-_See code: [src/commands/react.ts](https://github.com/node-cli/omnia-bundler/blob/v1.0.32/src/commands/react.ts)_
+_See code: [src/commands/react.ts](https://github.com/node-cli/omnia-bundler/blob/v1.0.33/src/commands/react.ts)_
 
 ## `omnia-bundler vue [FILE]`
 
@@ -121,5 +121,5 @@ OPTIONS
   -p, --prop-decorator
 ```
 
-_See code: [src/commands/vue.ts](https://github.com/node-cli/omnia-bundler/blob/v1.0.32/src/commands/vue.ts)_
+_See code: [src/commands/vue.ts](https://github.com/node-cli/omnia-bundler/blob/v1.0.33/src/commands/vue.ts)_
 <!-- commandsstop -->
