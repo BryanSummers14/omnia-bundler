@@ -84,6 +84,7 @@ export default class React extends Command {
             this.log(_stats.toString())
             spinner.fail(_err.message)
           }
+          this.log(_stats.toString())
           spinner.succeed('finished')
         })
       }

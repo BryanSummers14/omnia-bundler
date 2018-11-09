@@ -119,6 +119,7 @@ export default class Vue extends Command {
             this.log(_stats.toString())
             spinner.fail(_err.message)
           }
+          this.log(_stats.toString())
           spinner.succeed('finished')
         })
       }
