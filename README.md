@@ -44,7 +44,7 @@ $ npm install -g omnia-bundler
 $ omnia-bundler COMMAND
 running command...
 $ omnia-bundler (-v|--version|version)
-omnia-bundler/1.0.32
+omnia-bundler/1.0.32 darwin-x64 node-v10.7.0
 $ omnia-bundler --help [COMMAND]
 USAGE
   $ omnia-bundler COMMAND
@@ -54,9 +54,9 @@ USAGE
 # Commands
 <!-- commands -->
 * [`omnia-bundler help [COMMAND]`](#omnia-bundler-help-command)
-* [`omnia-bundler preact [OPTIONS]`](#omnia-bundler-preact-options)
-* [`omnia-bundler react [OPTIONS]`](#omnia-bundler-react-options)
-* [`omnia-bundler vue [OPTIONS]`](#omnia-bundler-vue-options)
+* [`omnia-bundler preact [FILE]`](#omnia-bundler-preact-file)
+* [`omnia-bundler react [FILE]`](#omnia-bundler-react-file)
+* [`omnia-bundler vue [FILE]`](#omnia-bundler-vue-file)
 
 ## `omnia-bundler help [COMMAND]`
 
@@ -75,55 +75,49 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.1/src/commands/help.ts)_
 
-## `omnia-bundler preact [OPTIONS]`
+## `omnia-bundler preact [FILE]`
 
-Starts bundler with preact configuration
+describe the command here
 
 ```
 USAGE
-  $ omnia-bundler preact [OPTIONS]
+  $ omnia-bundler preact [FILE]
 
 OPTIONS
   -D, --development
-  -f, --force
   -h, --help         show CLI help
-  -n, --name=name    name to print
   -w, --flow         Adds flow configuration
 ```
 
 _See code: [src/commands/preact.ts](https://github.com/node-cli/omnia-bundler/blob/v1.0.32/src/commands/preact.ts)_
 
-## `omnia-bundler react [OPTIONS]`
+## `omnia-bundler react [FILE]`
 
-Starts bundler with react configuration
+describe the command here
 
 ```
 USAGE
-  $ omnia-bundler react [OPTIONS]
+  $ omnia-bundler react [FILE]
 
 OPTIONS
   -D, --development
-  -f, --force
   -h, --help         show CLI help
-  -n, --name=name    name to print
   -w, --flow         Adds flow configuration
 ```
 
 _See code: [src/commands/react.ts](https://github.com/node-cli/omnia-bundler/blob/v1.0.32/src/commands/react.ts)_
 
-## `omnia-bundler vue [OPTIONS]`
+## `omnia-bundler vue [FILE]`
 
-Starts bundler in vue configuration
+describe the command here
 
 ```
 USAGE
-  $ omnia-bundler vue [OPTIONS]
+  $ omnia-bundler vue [FILE]
 
 OPTIONS
   -D, --development
-  -f, --force
   -h, --help            show CLI help
-  -n, --name=name       name to print
   -p, --prop-decorator
 ```
 
